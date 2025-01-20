@@ -1,0 +1,18 @@
+{
+	{$CADDY_GLOBAL_OPTIONS}
+
+	admin off
+
+	auto_https off
+	skip_install_trust
+
+	frankenphp
+
+	{$CADDY_GLOBAL_EXTRA_DIRECTIVES}
+}
+
+http://localhost {
+	root * /app/public/web
+
+	php_server
+}
