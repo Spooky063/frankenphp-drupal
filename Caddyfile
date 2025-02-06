@@ -8,11 +8,21 @@
 
 	frankenphp
 
+	order php_server before file_server
+	order php before file_server
+
 	{$CADDY_GLOBAL_EXTRA_DIRECTIVES}
 }
 
 http://localhost {
 	root * /app/public/web
+    encode zstd br gzip
+
+	@static {
+		file
+		path *.avif *.css *.eot *.gif *.gz *.ico *.jpg *.jpeg *.js *.otf *.pdf *.png *.svg *.ttf *.webp *.woff *.woff2
+	}
+	header @static Cache-Control "max-age=31536000,public,immutable"
 
 	php_server
 }
